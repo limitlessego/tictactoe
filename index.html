@@ -6,10 +6,40 @@
         <title>Tic Tac Toe</title>
     </head>
     <body>
+        <div id="main">
+            <div  id="left-side">
+                <div id="gameBoard">
+                        <p data-position="0">?</p>
+                        <p data-position="1">?</p>
+                        <p data-position="2">?</p>
+                        <p data-position="3">?</p>
+                        <p data-position="4">?</p>
+                        <p data-position="5">?</p>
+                        <p data-position="6">?</p>
+                        <p data-position="7">?</p>
+                        <p data-position="9">?</p>
+                    </div>
+                <div id="winningPlayer">None</div>
+            </div>
+
+            <div id="right-side">
+                <div id="playersNames">
+                    <div id="player1">Double click</div>
+                    <div id="player2">Double click</div>
+                </div>
+                <div id="liveResults"></div>
+                <div id="playersTotals">
+                    <div id="totalPlayer1">0</div>
+                    <div id="totalPlayer2">0</div>
+                </div>
+                <button id="reset">RESET</button>
+            </div>
+
+        </div>
 
 
 
-        
+
         <script src="script.js"></script>
     </body>
 </html>

@@ -1,0 +1,17 @@
+#main {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#gameBoard {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+#playersNames {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
+#playersTotals {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+}
