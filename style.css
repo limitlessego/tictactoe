@@ -6,6 +6,7 @@
 #gameBoard {
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
 }
 #playersNames {
     display:grid;
@@ -14,4 +15,15 @@
 #playersTotals {
     display:grid;
     grid-template-columns: 1fr 1fr;
+}
+#winningPlayer {
+    text-align: center;
+}
+#reset{
+    
+    width:100px;
+    height:30px;
+}
+#right-side {
+    text-align: center;
 }
