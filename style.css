@@ -21,9 +21,18 @@
 }
 #reset{
     
-    width:100px;
-    height:30px;
+    width:50vw;
+    height:3vh;
+}
+#resetBoard{
+    
+    width:50vw;
+    height:3vh;
 }
 #right-side {
     text-align: center;
+}
+#liveResults{
+    height:40vh;
+    overflow: scroll;
 }

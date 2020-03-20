@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="Viewport" content="with=device-width,initial-scale=1.0">
+        <meta name="Viewport" content="width=device-width,initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
         <title>Tic Tac Toe</title>
     </head>
     <body>
         <div id="main">
             <div  id="left-side">
-                <div id="gameBoard">
-                        <p data-position="0">?</p>
-                        <p data-position="1">?</p>
-                        <p data-position="2">?</p>
-                        <p data-position="3">?</p>
-                        <p data-position="4">?</p>
-                        <p data-position="5">?</p>
-                        <p data-position="6">?</p>
-                        <p data-position="7">?</p>
-                        <p data-position="9">?</p>
+                <div id="gameBoard"><canvas id="canvas1"></canvas>
+                        
                     </div>
-                <div id="winningPlayer">None</div>
+                
             </div>
 
             <div id="right-side">
                 <div id="playersNames">
                     <div id="player1">Double click</div>
-                    <div id="player2">Double click</div>
+                    <div id="player2">Double click </div>
+                    
                 </div>
-                <div id="liveResults"></div>
+                <input type="checkbox" id="AiMode" value="vs PC">vs PC
+                <div id="liveResults">
+
+                </div>
                 <div id="playersTotals">
                     <div id="totalPlayer1">0</div>
                     <div id="totalPlayer2">0</div>
                 </div>
-                <button id="reset">RESET</button>
+                <button id="reset">New Game</button>
+                
+                <button id="resetBoard">RESET Board</button>
             </div>
 
         </div>
