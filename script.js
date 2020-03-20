@@ -23,8 +23,7 @@ let avaliableSpots = {
 }
 let noSpots = false;
 let vsPC = false;
-var elLeft;
-var elTop;
+
 
 canvas = document.getElementById("canvas1");
 const resetBtn = document.getElementById("reset");
@@ -43,7 +42,7 @@ vsPCSelect.addEventListener("click",function(){
   }else{vsPC = false;
     
     }
-    console.log(vsPC);
+    
 })
 
 
@@ -75,8 +74,7 @@ let currentPlayer = Math.floor(Math.random() * 2);
         canvas.width = 400;
         canvas.height = 400;
 
-        elTop = canvas.offsetTop;
-        elLeft = canvas.offsetLeft;
+     
          w = canvas.width / 3;
          h = canvas.height / 3;
          r = w/4;
@@ -438,7 +436,6 @@ var newGame = game();
 let players = [];
 players[0] = newGame.player("Dawid","o");
 players[1] = newGame.player("Maria","x");
-players[1].ai = true;
 newGame.setup();
 newGame.draw();
 
