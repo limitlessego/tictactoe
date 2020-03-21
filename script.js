@@ -1,11 +1,11 @@
-var gameboard = [   // gameboard 
+var gameboard = [   // logic gameboard 
     ['','',''],     //  [0][0],[0][1],[0][2]
     ['','',''],     //  [1][0],[1][1],[1][2]
     ['','','']      //  [2][0],[2][0],[2][0]
 ];
 
 const game = () => {
-var w,h,r,canvas,ctx;
+var w,h,r,ctx;
 let turnAi = false;
 var winnerResult = false;
 let avaliablePlaces = [];
@@ -25,7 +25,7 @@ let noSpots = false;
 let vsPC = true;
 
 
-canvas = document.getElementById("canvas1");
+let canvas = document.getElementById("canvas1");
 const resetBtn = document.getElementById("reset");
 const player1Name = document.getElementById("player1");
 const player2Name = document.getElementById("player2");
@@ -35,18 +35,16 @@ var total1 = document.getElementById("totalPlayer1");
 var total2 = document.getElementById("totalPlayer2");
 var vsPCSelect = document.getElementById("AiMode");
 
-vsPCSelect.addEventListener("click",function(){
+let currentPlayer = 0;
+
+vsPCSelect.addEventListener("click",function(){   //choose vs Player or AI
   if(vsPCSelect.checked == true){
     vsPC = true;
-    
-  }else{vsPC = false;
-    
+  }else{
+    vsPC = false;
     }
     
-})
-
-
-
+});
 
 boardReset.addEventListener("click", function(){
     table.innerHTML = "No game has been played yet.";
@@ -66,26 +64,29 @@ resetBtn.addEventListener("click", function(){
 });
 
 
-let currentPlayer = 0;
     const setup = () =>{
-        //setup of canvas
-         
-       // var gameboardDisplay = document.getElementById('gameBoard');
+        //set size of canvas
         canvas.width = 400;
         canvas.height = 400;
 
-     
-         w = canvas.width / 3;
-         h = canvas.height / 3;
-         r = w/4;
-         ctx = canvas.getContext("2d");
-        checkPlaces();
-        //gameboardDisplay.appendChild(canvas);
+        //set varibles for game lines
+        w = canvas.width / 3;
+        h = canvas.height / 3;
+        // set size of r
+        r = w/4;
+        ctx = canvas.getContext("2d");
+        reset();
         
     }
-    function checkPlaces() {
-      avaliablePlaces = [];
-      avaliableSpots.inUse1 = false;
+    function reset() {
+
+      //set players names
+
+      player1Name.innerHTML = players[0].name;
+      player2Name.innerHTML = players[1].name;
+
+      avaliablePlaces = [];  // reset the AI avaliablePlaces arry
+      avaliableSpots.inUse1 = false; // clean avaliable player places
       avaliableSpots.inUse2 = false;
       avaliableSpots.inUse3 = false;
       avaliableSpots.inUse4 = false;
@@ -94,40 +95,48 @@ let currentPlayer = 0;
       avaliableSpots.inUse7 = false;
       avaliableSpots.inUse8 = false;
       avaliableSpots.inUse9 = false;
-      noSpots = false;
-      
-      if(turnAi == true){
+      noSpots = false;                //reset noSpot status
+      winnerResult = false; //reset winner status
+
+      for(let i = 0;i < 3 ;i++){  // clean logic gameboard
+        for(let j = 0;j < 3;j++){
+          gameboard[i][j] = "";
+        }
+      }
+      if(turnAi == true){  // if AI turn is next, swap it to player
         currentPlayer = 0;
       }
-    
-      for (let j = 0; j < 3; j++) {
+      for (let j = 0; j < 3; j++) { // fill AI possible moves arry
         for (let i = 0; i < 3; i++) {
             avaliablePlaces.push([i, j]);
         }
       }
+            // reset game screen
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            draw();
     }
     const draw = () => {
 
         ctx.beginPath();
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        //draw the game grdi lines
+        ctx.setTransform(1, 0, 0, 1, 0, 0); //reset transform matrix
+        //draw the game grid lines
 
         //first vertical
         ctx.moveTo(w,0);
-        ctx.lineTo(w,400);
+        ctx.lineTo(w,canvas.height);
         ctx.stroke();
         //second vertical
         ctx.moveTo(w * 2,0);
-        ctx.lineTo(w * 2,400);
+        ctx.lineTo(w * 2,canvas.height);
         ctx.stroke();
 
         //first horizontal
         ctx.moveTo(0,h);
-        ctx.lineTo(400,h);
+        ctx.lineTo(canvas.width,h);
         ctx.stroke();
         //second horizontal
         ctx.moveTo(0,h * 2);
-        ctx.lineTo(400,h * 2);
+        ctx.lineTo(canvas.width,h * 2);
         ctx.stroke();
 
     }
@@ -141,7 +150,7 @@ let currentPlayer = 0;
                 if (spot == players[0].marker){
                  //draw circle
                 ctx.beginPath();
-                ctx.arc(x,y,40,0,2 * r);
+                ctx.arc(x,y,canvas.height * 0.1,0,2 * r);
                 ctx.stroke();
                 }else if(spot == players[1].marker){
                  // draw x
@@ -264,8 +273,7 @@ let currentPlayer = 0;
       }
     }
 
-        }
-    
+        }   
     const player = (name,marker) => {
         const player = {name: name,score:0,marker:marker,ai:false}
         return player;
@@ -275,37 +283,37 @@ let currentPlayer = 0;
       //horonizal
       if(x == 0 && y == 0 && z == 0 && t == 2){
         ctx.moveTo(0,h/2);
-        ctx.lineTo(400,h/2);
+        ctx.lineTo(canvas.width,h/2);
         ctx.stroke();
       }else if(x == 1 && y == 0 && z == 1 && t == 2){ //horonizal 2 drawLine(i,0,i,2);
-        ctx.moveTo(0,200);
-        ctx.lineTo(400,200);
+        ctx.moveTo(0,canvas.height /2);
+        ctx.lineTo(canvas.width,canvas.height/2);
         ctx.stroke();
       }else if(x == 2 && y == 0 && z == 2 && t == 2){ //horonizal 3
-        ctx.moveTo(0,400 - h/2);
-        ctx.lineTo(400,400 -h/2);
+        ctx.moveTo(0,canvas.width - h/2);
+        ctx.lineTo(canvas.width,canvas.height -h/2);
         ctx.stroke();
     }
     else if(x == 0 && y == 0 && z == 2 && t == 0){ //verticaldrawLine(0,i,2,i);
       ctx.moveTo(w/2,0);
-      ctx.lineTo(w/2,400);
+      ctx.lineTo(w/2,canvas.height);
       ctx.stroke();
     }else if(x == 0 && y == 1 && z == 2 && t == 1){ //verticaldrawLine(0,i,2,i); vert 2
-      ctx.moveTo(200,0);
-      ctx.lineTo(200,400);
+      ctx.moveTo(canvas.width/2,0);
+      ctx.lineTo(canvas.width/2,canvas.heigth);
       ctx.stroke();
     }
     else if(x == 0 && y == 2 && z == 2 && t == 2){ //verticaldrawLine(0,i,2,i); vert 3
-      ctx.moveTo(400 - w/2,0);
-      ctx.lineTo(400 - w/2,400);
+      ctx.moveTo(canvas.width - w/2,0);
+      ctx.lineTo(canvas.width - w/2,canvas.heigth);
       ctx.stroke();
     }    else if(x == 0 && y == 0 && z == 2 && t == 2){ //diagonial
       ctx.moveTo(0,0);
-      ctx.lineTo(400,400);
+      ctx.lineTo(canvas.width,canvas.height);
       ctx.stroke();
     }else if(x == 2 && y == 0 && z == 0 && t == 2){ //diagonial2
-      ctx.moveTo(0,400);
-      ctx.lineTo(400,0);
+      ctx.moveTo(0,canvas.height);
+      ctx.lineTo(canvas.width,0);
       ctx.stroke();
     }
 
@@ -329,22 +337,6 @@ let currentPlayer = 0;
         }
          
     }
-    function reset(){
-  
-      for(let i = 0;i < 3 ;i++){
-        for(let j = 0;j < 3;j++){
-          gameboard[i][j] = "";
-        }
-      }
-      winnerResult = false;
-      
-      // reset game screen
-      checkPlaces();
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-     draw();
-    
-  }
   function changeName(player){
 
     if(player == "player1"){
@@ -363,7 +355,8 @@ let currentPlayer = 0;
   canvas.addEventListener("click", function(el){
     
     
-    if(el.pageX <= 140 && el.pageY <= 140){ // gameboard[0][0] //first
+    if(el.pageX <= canvas.width/3 + canvas.offsetLeft             // gameboard[0][0] //first
+    && el.pageY <= canvas.height/3 + canvas.offsetTop){ 
       
       if(avaliableSpots.inUse1 == false){
         avaliableSpots.inUse1 = true;
@@ -371,7 +364,11 @@ let currentPlayer = 0;
       }
       
     
-    }else if(el.pageX > 140 && el.pageY <= 140 && el.pageX <= 275){ // gameboard[0][1] //second
+    
+    
+    }else if(el.pageX > canvas.width/3 + canvas.offsetLeft        // gameboard[0][1] //second
+          && el.pageY <= canvas.height/3 + canvas.offsetTop 
+          && el.pageX <= (canvas.width/3 + canvas.offsetLeft/3 + 1) * 2){ 
       
       if(avaliableSpots.inUse2 == false){
         avaliableSpots.inUse2 = true;
@@ -379,29 +376,43 @@ let currentPlayer = 0;
       }
      
     
-    }else if(el.pageX > 275 && el.pageY <= 140 ){ // gameboard[0][2] //third    
-      
+    
+    
+    
+    
+    
+    
+    }else if(el.pageX > ((canvas.width/3 + canvas.offsetLeft/3 + 1) * 2)  // gameboard[0][2] //third
+          && el.pageY <= canvas.height/3 + canvas.offsetTop){
+  
       if(avaliableSpots.inUse3 == false){
         avaliableSpots.inUse3 = true;
         nextTurn(0,2);
       }
-      
-    
-    }else if(el.pageX <= 140 && el.pageY > 140 && el.pageY <= 275 ){ // gameboard[1][0]  //fourth 
+
+
+    }else if(el.pageX <= canvas.width/3 + canvas.offsetLeft       // gameboard[1][0]  //fourth
+          && el.pageY > canvas.height/3 + canvas.offsetTop
+          && el.pageY <= (canvas.height/3 + canvas.offsetTop)*2 ){  
       if(avaliableSpots.inUse4 == false){
         avaliableSpots.inUse4 = true;
         nextTurn(1,0);
       }
       
     
-    }else if(el.pageX > 140 && el.pageY > 140 && el.pageY <= 275 && el.pageX <= 275 ){ // gameboard[1][1] //fifth
+    }else if(el.pageX > canvas.width/3   + canvas.offsetLeft      // gameboard[1][1] //fifth
+          && el.pageY > canvas.height/3 + canvas.offsetTop
+          && el.pageY <= (canvas.height/3 + canvas.offsetTop)*2 
+          && el.pageX <= (canvas.width/3 + canvas.offsetLeft)*2 ){ 
       if(avaliableSpots.inUse5 == false){
         avaliableSpots.inUse5 = true;
         nextTurn(1,1);
       }
       
       
-    }else if(el.pageX > 275 && el.pageY > 140 && el.pageY <= 275){ // gameboard[1][2]    //sixth
+    }else if(el.pageX > (canvas.width/3 + canvas.offsetLeft)*2    // gameboard[1][2]    //sixth
+          && el.pageY > canvas.height/3 + canvas.offsetTop
+          && el.pageY <= (canvas.height/3 + canvas.offsetTop)*2){ 
       if(avaliableSpots.inUse6 == false){
         avaliableSpots.inUse6 = true;
         nextTurn(1,2);
@@ -409,21 +420,25 @@ let currentPlayer = 0;
      
      
       
-    }else if(el.pageX <= 140 && el.pageY > 275 ){ // gameboard[2][0] //seventh
+    }else if(el.pageX <= canvas.width/3 + canvas.offsetLeft       // gameboard[2][0] //seventh
+          && el.pageY > (canvas.height/3 + canvas.offsetTop)*2 ){ 
       if(avaliableSpots.inUse7 == false){
         avaliableSpots.inUse7 = true;
         nextTurn(2,0);
       }          
       
       
-    }else if(el.pageX > 140 && el.pageY > 275 && el.pageX <= 275){ // gameboard[2][1] //eigth
+    }else if(el.pageX > canvas.width/3   + canvas.offsetLeft      // gameboard[2][1] //eigth
+          && el.pageY > (canvas.height/3 + canvas.offsetTop)*2 
+          && el.pageX <= (canvas.width/3 + canvas.offsetLeft)*2){ 
       if(avaliableSpots.inUse8 == false){
         avaliableSpots.inUse8 = true;
         nextTurn(2,1);
       }
                  
       
-     }else if(el.pageX > 275 && el.pageY > 275 ){ // gameboard[2][2]  //ninth            
+     }else if(el.pageX > (canvas.width/3 + canvas.offsetLeft)*2   // gameboard[2][2]  //ninth
+           && el.pageY > (canvas.height/3 + canvas.offsetTop)*2 ){             
       if(avaliableSpots.inUse9 == false){
         avaliableSpots.inUse9 = true;
         nextTurn(2,2);
@@ -434,9 +449,7 @@ let currentPlayer = 0;
                     }
   },false)
 
-
-    
-    return {draw,player,nextTurn,setup}
+    return {player,setup}
 }
 
 
@@ -447,6 +460,5 @@ let players = [];
 players[0] = newGame.player("Dawid","o");
 players[1] = newGame.player("Maria","x");
 newGame.setup();
-newGame.draw();
 
 
