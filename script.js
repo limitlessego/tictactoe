@@ -95,6 +95,7 @@ let currentPlayer = Math.floor(Math.random() * 2);
       avaliableSpots.inUse8 = false;
       avaliableSpots.inUse9 = false;
       noSpots = false;
+      
     
       for (let j = 0; j < 3; j++) {
         for (let i = 0; i < 3; i++) {
@@ -228,9 +229,11 @@ let currentPlayer = Math.floor(Math.random() * 2);
 
             }
             gameboard[i][j] = players[currentPlayer].marker;
+            
             currentPlayer = (currentPlayer + 1) % players.length;
             free = true;
             drawMarker(i,j);
+
             turnAi = false;
           }else{
             console.log("next spot");
@@ -242,9 +245,13 @@ let currentPlayer = Math.floor(Math.random() * 2);
       
         if(gameboard[i][j] == ""){
             gameboard[i][j] = players[currentPlayer].marker;
+           
             currentPlayer = (currentPlayer + 1) % players.length;
             
             drawMarker(i,j);
+            if(winnerResult == true){
+              currentPlayer = (currentPlayer + 1) % players.length;
+            }
             turnAi = true;
             if (vsPC == true && winnerResult == false){
               nextTurn();
