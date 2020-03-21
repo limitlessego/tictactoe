@@ -22,7 +22,7 @@ let avaliableSpots = {
 
 }
 let noSpots = false;
-let vsPC = false;
+let vsPC = true;
 
 
 canvas = document.getElementById("canvas1");
