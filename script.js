@@ -300,12 +300,12 @@ resetBtn.addEventListener("click", function(){
       ctx.stroke();
     }else if(x == 0 && y == 1 && z == 2 && t == 1){ //verticaldrawLine(0,i,2,i); vert 2
       ctx.moveTo(canvas.width/2,0);
-      ctx.lineTo(canvas.width/2,canvas.heigth);
+      ctx.lineTo(canvas.width/2,canvas.height);
       ctx.stroke();
     }
     else if(x == 0 && y == 2 && z == 2 && t == 2){ //verticaldrawLine(0,i,2,i); vert 3
       ctx.moveTo(canvas.width - w/2,0);
-      ctx.lineTo(canvas.width - w/2,canvas.heigth);
+      ctx.lineTo(canvas.width - w/2,canvas.height);
       ctx.stroke();
     }    else if(x == 0 && y == 0 && z == 2 && t == 2){ //diagonial
       ctx.moveTo(0,0);
